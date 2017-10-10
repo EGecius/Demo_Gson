@@ -31,4 +31,23 @@ public class GsonExampleTest {
         assertThat(user.getMaidenName()).isEqualTo(MAIDEN_NAME);
     }
 
+    @Test
+    public void convertsWithSomeFieldsAsNull() {
+        User user = new User("2", null, null);
+        String userAsString = new Gson().toJson(user);
+
+        assertThat(userAsString).isEqualTo("{\"id\":\"1\"}");
+    }
+
+    @Test
+    public void convertsFromJsonWithSomeEmptyField() {
+        String asString = "{\"id\":\"2\"}";
+
+        User user = new Gson().fromJson(asString, User.class);
+
+        assertThat(user.getId()).isEqualTo("2");
+        assertThat(user.getName()).isNull();
+        assertThat(user.getMaidenName()).isNull();
+    }
+
 }
