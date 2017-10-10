@@ -50,4 +50,18 @@ public class ReflectionExample {
 
         return list;
     }
+
+    public List<String> getFieldValuesWithReflection(Object object) throws IllegalAccessException {
+
+        List<String> list = new ArrayList<>();
+
+        Field[] fields = object.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            String value = (String) field.get(object);
+            list.add(value);
+        }
+
+        return list;
+    }
 }

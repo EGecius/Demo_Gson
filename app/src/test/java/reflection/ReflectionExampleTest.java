@@ -45,4 +45,16 @@ public class ReflectionExampleTest {
         assertThat(annotation.annotationType()).isEqualTo(SerializedName.class);
     }
 
+    @Test
+    public void getFieldValues() throws IllegalAccessException {
+
+        User user = new User("1", "Steve", "Stone");
+
+        List<String> fieldValues = mSut.getFieldValuesWithReflection(user);
+        assertThat(fieldValues.size()).isEqualTo(3);
+        assertThat(fieldValues.get(0)).isEqualTo("1");
+        assertThat(fieldValues.get(1)).isEqualTo("Steve");
+        assertThat(fieldValues.get(2)).isEqualTo("Stone");
+    }
+
 }
