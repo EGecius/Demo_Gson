@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import gson.User;
@@ -55,6 +56,28 @@ public class ReflectionExampleTest {
         assertThat(fieldValues.get(0)).isEqualTo("1");
         assertThat(fieldValues.get(1)).isEqualTo("Steve");
         assertThat(fieldValues.get(2)).isEqualTo("Stone");
+    }
+
+    @Test (expected = IllegalAccessException.class)
+    public void cannotInvokesPrivateMethods() throws InvocationTargetException,
+            IllegalAccessException {
+        ReflectionTarget reflectionTarget = new ReflectionTarget();
+        assertThat(reflectionTarget.isPrivateMethodCalled).isFalse();
+
+        mSut.invokePrivateMethods(reflectionTarget);
+
+        assertThat(reflectionTarget.isPrivateMethodCalled).isTrue();
+    }
+
+    @Test
+    public void invokesPackagePrivateMethods() throws InvocationTargetException,
+            IllegalAccessException {
+        ReflectionTarget reflectionTarget = new ReflectionTarget();
+        assertThat(reflectionTarget.isPackagePrivateMethodInvoked).isFalse();
+
+        mSut.invokePackagePrivateMethods(reflectionTarget);
+
+        assertThat(reflectionTarget.isPackagePrivateMethodInvoked).isTrue();
     }
 
 }

@@ -2,6 +2,8 @@ package reflection;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,5 +65,32 @@ public class ReflectionExample {
         }
 
         return list;
+    }
+
+    public void invokePrivateMethods(ReflectionTarget target)
+            throws InvocationTargetException, IllegalAccessException {
+        invokeAllMethods(target);
+    }
+
+    private void invokeAllMethods(ReflectionTarget target)
+            throws InvocationTargetException, IllegalAccessException {
+        Method[] methods = target.getClass().getDeclaredMethods();
+        for (Method method : methods) {
+            method.invoke(target);
+        }
+    }
+
+    public void invokePackagePrivateMethods(ReflectionTarget target) {
+        Method[] methods = target.getClass().getDeclaredMethods();
+        for (Method method : methods) {
+            try {
+                //it will fail on private methods but let's keep trying
+                method.invoke(target);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
