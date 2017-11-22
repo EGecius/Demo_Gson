@@ -36,7 +36,7 @@ public class GsonExampleTest {
         User user = new User("2", null, null);
         String userAsString = new Gson().toJson(user);
 
-        assertThat(userAsString).isEqualTo("{\"id\":\"1\"}");
+        assertThat(userAsString).isEqualTo("{\"id\":\"2\"}");
     }
 
     @Test
