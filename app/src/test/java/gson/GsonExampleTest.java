@@ -14,17 +14,19 @@ public class GsonExampleTest {
     public static final String NAME = "john";
     private static final String MAIDEN_NAME = "brown";
     public static final User JOHN_AS_USER = new User(ID, NAME, MAIDEN_NAME);
+    
+    private final Gson mGson = new Gson();
 
     @Test
     public void convertsToString() {
-        String userAsString = new Gson().toJson(JOHN_AS_USER);
+        String userAsString = mGson.toJson(JOHN_AS_USER);
 
         assertThat(userAsString).isEqualTo(JOHN_AS_STRING);
     }
 
     @Test
     public void convertsToUser() {
-        User user = new Gson().fromJson(JOHN_AS_STRING, User.class);
+        User user = mGson.fromJson(JOHN_AS_STRING, User.class);
 
         assertThat(user.getId()).isEqualTo(ID);
         assertThat(user.getName()).isEqualTo(NAME);
@@ -34,7 +36,7 @@ public class GsonExampleTest {
     @Test
     public void convertsWithSomeFieldsAsNull() {
         User user = new User("2", null, null);
-        String userAsString = new Gson().toJson(user);
+        String userAsString = mGson.toJson(user);
 
         assertThat(userAsString).isEqualTo("{\"id\":\"2\"}");
     }
@@ -43,7 +45,7 @@ public class GsonExampleTest {
     public void convertsFromJsonWithSomeEmptyField() {
         String asString = "{\"id\":\"2\"}";
 
-        User user = new Gson().fromJson(asString, User.class);
+        User user = mGson.fromJson(asString, User.class);
 
         assertThat(user.getId()).isEqualTo("2");
         assertThat(user.getName()).isNull();
