@@ -62,7 +62,6 @@ public class DeepCopyTest {
         assertThat(mapDeepCopy.get(1)).isEqualTo(ONE);
     }
 
-
     @Test
     public void demoDeepCopyConcurrentHashMapPreservingTypeInfo() {
 
@@ -78,22 +77,5 @@ public class DeepCopyTest {
         assertThat(mapDeepCopy.get(0)).isEqualTo(ZERO);
         assertThat(mapDeepCopy.get(1)).isEqualTo(ONE);
     }
-
-//    @Test
-//    public void demoHashMapDeepCopy() {
-//
-//        HashMap<Integer, User> hashMap = new HashMap<>();
-//        hashMap.put(1, user);
-//
-//        String json = gson.toJson(hashMap);
-//        Map<Integer, User> hashMapDeepCopy = gson.fromJson(json, Map.class);
-//
-//        User user = hashMapDeepCopy.get(1);
-//        assertThat(user.getFirstName()).isEqualTo(FIRST_NAME);
-//    }
-
-
-
-    // TODO: 04/07/2018 demo how to deep copy a concurrent map
 
 }
