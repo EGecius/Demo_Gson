@@ -4,6 +4,7 @@ package gson;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
+
     private final String id;
     private final String name;
     @SerializedName ("maiden_name")
@@ -36,4 +37,5 @@ public class User {
     public String getMaidenName() {
         return maidenName;
     }
+
 }
