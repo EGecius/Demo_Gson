@@ -7,6 +7,9 @@ import com.google.gson.Gson;
 
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import deepcopy.Address;
 import deepcopy.User;
 
@@ -14,6 +17,8 @@ public class DeepCopyTest {
 
     private static final String FIRST_NAME = "Prime";
     private static final String LAST_NAME = "Minister";
+    private static final String ZERO = "zero";
+    private static final String ONE = "one";
 
     Address address = new Address("Downing St 10", "London", "England");
     User user = new User(FIRST_NAME, LAST_NAME, address);
@@ -38,16 +43,39 @@ public class DeepCopyTest {
         assertThat(userDeepCopy.getAddress()).isEqualTo(user.getAddress());
     }
 
+    // TODO: 04/07/2018 demo how to deep copy a simple map
+
+
+    @Test
+    public void demoDeepCopyMapWithPrimitives() {
+
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        hashMap.put("0", ZERO);
+        hashMap.put("1", ONE);
+
+        String json = gson.toJson(hashMap);
+        Map<Integer, String> mapDeepCopy = gson.fromJson(json, Map.class);
+
+        assertThat(mapDeepCopy.get("0")).isEqualTo(ZERO);
+        assertThat(mapDeepCopy.get("1")).isEqualTo(ONE);
+    }
+
 //    @Test
 //    public void demoHashMapDeepCopy() {
 //
 //        HashMap<Integer, User> hashMap = new HashMap<>();
 //        hashMap.put(1, user);
 //
-//        HashMap<Integer, User> hashMapDeepCopy = gson.fromJson(gson.toJson(hashMap), HashMap.class);
+//        String json = gson.toJson(hashMap);
+//        Map<Integer, User> hashMapDeepCopy = gson.fromJson(json, Map.class);
 //
 //        User user = hashMapDeepCopy.get(1);
 //        assertThat(user.getFirstName()).isEqualTo(FIRST_NAME);
 //    }
+
+
+
+    // TODO: 04/07/2018 demo how to deep copy a concurrent map
 
 }
