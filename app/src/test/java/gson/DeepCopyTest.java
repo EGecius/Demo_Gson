@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import deepcopy.Address;
 import deepcopy.User;
@@ -56,6 +57,23 @@ public class DeepCopyTest {
         String json = gson.toJson(hashMap);
         Type type = new TypeToken<Map<Integer, String>>(){}.getType();
         Map<String, String> mapDeepCopy = gson.fromJson(json, type);
+
+        assertThat(mapDeepCopy.get(0)).isEqualTo(ZERO);
+        assertThat(mapDeepCopy.get(1)).isEqualTo(ONE);
+    }
+
+
+    @Test
+    public void demoDeepCopyConcurrentHashMapPreservingTypeInfo() {
+
+        HashMap<Integer, String> hashMap = new HashMap<>();
+
+        hashMap.put(0, ZERO);
+        hashMap.put(1, ONE);
+
+        String json = gson.toJson(hashMap);
+        Type type = new TypeToken<ConcurrentHashMap<Integer, String>>(){}.getType();
+        ConcurrentHashMap<String, String> mapDeepCopy = gson.fromJson(json, type);
 
         assertThat(mapDeepCopy.get(0)).isEqualTo(ZERO);
         assertThat(mapDeepCopy.get(1)).isEqualTo(ONE);
