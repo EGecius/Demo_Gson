@@ -4,9 +4,11 @@ package gson;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.junit.Test;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,22 +45,20 @@ public class DeepCopyTest {
         assertThat(userDeepCopy.getAddress()).isEqualTo(user.getAddress());
     }
 
-    // TODO: 04/07/2018 demo how to deep copy a simple map
-
-
     @Test
-    public void demoDeepCopyMapWithPrimitives() {
+    public void demoDeepCopyMapPreservingTypeInfo() {
 
-        HashMap<String, String> hashMap = new HashMap<>();
+        HashMap<Integer, String> hashMap = new HashMap<>();
 
-        hashMap.put("0", ZERO);
-        hashMap.put("1", ONE);
+        hashMap.put(0, ZERO);
+        hashMap.put(1, ONE);
 
         String json = gson.toJson(hashMap);
-        Map<Integer, String> mapDeepCopy = gson.fromJson(json, Map.class);
+        Type type = new TypeToken<Map<Integer, String>>(){}.getType();
+        Map<String, String> mapDeepCopy = gson.fromJson(json, type);
 
-        assertThat(mapDeepCopy.get("0")).isEqualTo(ZERO);
-        assertThat(mapDeepCopy.get("1")).isEqualTo(ONE);
+        assertThat(mapDeepCopy.get(0)).isEqualTo(ZERO);
+        assertThat(mapDeepCopy.get(1)).isEqualTo(ONE);
     }
 
 //    @Test
