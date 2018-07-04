@@ -2,7 +2,7 @@ package deepcopy;
 
 import android.annotation.SuppressLint;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class User {
 
@@ -10,7 +10,7 @@ public class User {
     private String lastName;
 
     @SuppressLint("UseSparseArrays")
-    private final HashMap<Integer, Address> addressesHashMap = new HashMap<>();
+    private final ConcurrentHashMap<Integer, Address> addressesHashMap = new ConcurrentHashMap<>();
 
     public User(String firstName, String lastName, Address address) {
         this.firstName = firstName;

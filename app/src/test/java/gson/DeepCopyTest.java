@@ -32,7 +32,7 @@ public class DeepCopyTest {
     }
 
     @Test
-    public void hashMapValuesArePreservedWithDeepCopies() {
+    public void concurrentHashMapValuesArePreservedWithDeepCopies() {
         User userDeepCopy = gson.fromJson(gson.toJson(user), User.class);
 
         assertThat(userDeepCopy.getAddress()).isEqualTo(user.getAddress());
