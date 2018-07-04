@@ -31,6 +31,13 @@ public class DeepCopyTest {
                 .isNotEqualTo(user.getAddress().getCountry());
     }
 
+    @Test
+    public void hashMapValuesArePreservedWithDeepCopies() {
+        User userDeepCopy = gson.fromJson(gson.toJson(user), User.class);
+
+        assertThat(userDeepCopy.getAddress()).isEqualTo(user.getAddress());
+    }
+
 //    @Test
 //    public void demoHashMapDeepCopy() {
 //
